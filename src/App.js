@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import logo from './assets/to-do.jpg'
 import ToDo from './components/ToDo.js'
 
 class App extends Component {
@@ -35,12 +36,20 @@ class App extends Component {
     this.setState({ todos: todos});
   }
 
+  deleteTodo(index) {
+    const removeTodo = this.state.todos[index];
+    const todos = this.state.todos.filter( todo => todo != removeTodo)
+    this.setState({ todos: todos });
+  }
+
   render() {
     return (
       <div className="App">
+      <img src={ logo } alt="logo"/>
+      <h1>To-Do</h1>
        <ul>
         { this.state.todos.map( (todo, index) =>
-          <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
+          <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } deleteTodo={ () => this.deleteTodo(index) }/>
         )}
        </ul>
        <form onSubmit={ (e) => this.handleSubmit(e) }>
